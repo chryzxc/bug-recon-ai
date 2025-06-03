@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+
+# Environment variables
+.env
+.env.*
+
+# IDE settings
+.vscode/
+.idea/
+*.swp
+
+# Logs and local files
+*.log
+*.out
+*.tmp
+
+# Python test cache
+.pytest_cache/
+.tox/
+
+# Build/packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# System files
+.DS_Store
+Thumbs.db
