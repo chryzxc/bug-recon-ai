@@ -1,5 +1,13 @@
-# openai
+# Core dependencies
 requests
+beautifulsoup4
+python-nmap
+selenium
+pandas
+openai
 python-dotenv
-colorama
-typing
+
+# Reporting
+Jinja2
+matplotlib
+pdfkit
