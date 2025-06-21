@@ -13,7 +13,7 @@ import json
 from datetime import datetime
 from modules.scanner.sublister import Sublist3rScanner
 from modules.scanner.nmap import NmapScanner
-
+from modules.scanner.whatweb import WhatWebScanner
 def main():
     # Initialize scanners
     parser = argparse.ArgumentParser(description="Bug Recon AI Toolkit")
@@ -30,6 +30,7 @@ def main():
     web_scanner = WebScanner(args.target)
     sub_scanner = Sublist3rScanner()
     nmap_scanner = NmapScanner()
+    whatweb_scanner = WhatWebScanner()
     # port_scanner = PortScanner()
     vuln_analyzer = VulnerabilityAnalyzer()
     report_gen = ReportGenerator()
@@ -38,7 +39,8 @@ def main():
     # Perform scans
     print("Crawling website...")
     web_pages = web_scanner.crawl()
-
+    
+    whatweb_results = whatweb_scanner.scan(args.target)
     
     # print("Scanning ports...")
     # port_results = port_scanner.scan(args.target)
@@ -98,6 +100,7 @@ def main():
         'crawled_pages':crawled_pages,
         'ports':all_ports,
         'subdomains':subdomains,
+        'technologies':whatweb_results,
         'summary': summary,
         'stats': {
             'total_findings': len(findings),

@@ -3,16 +3,19 @@ import json
 from pathlib import Path
 
 class Sublist3rScanner:
+    def __init__(self):
+        self.base_path = "/sublister/output"
+        
     def scan(self, domain, output_dir="outputs"):
         output_file = Path(output_dir) / f"{domain}_subdomains.json"
         output_file.parent.mkdir(exist_ok=True)
         
         cmd = [
             "docker", "run", "--rm",
-            "-v", f"{Path.cwd()}/{output_dir}:/output",
+            "-v", f"{Path.cwd()}/{output_dir}:{self.base_path}",
             "recon-sublister",
             "-d", domain,
-            "-o", f"/output/{output_file.name}"
+            "-o", f"{self.base_path}/{output_file.name}"
         ]
         
         try:
