@@ -4,9 +4,9 @@ beautifulsoup4
 python-nmap
 selenium
 pandas
-openai
+# openai
 python-dotenv
-
+groq
 # Reporting
 Jinja2
 matplotlib

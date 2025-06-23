@@ -16,6 +16,7 @@ services:
       - sublister_builder
       - nmap_builder
       - whatweb_builder
+      - katana_builder
 
   sublister_builder:
     build:
@@ -29,7 +30,7 @@ services:
   nmap_builder:
     image: instrumentisto/nmap
     volumes:
-      - ./outputs:/scans
+      - ./outputs:/nmap
     profiles: ["build-only"]
 
   whatweb_builder:
@@ -39,4 +40,10 @@ services:
     volumes:
       - ./outputs:/whatweb/output
     image: recon-whatweb
+    profiles: ["build-only"]
+
+  katana_builder:
+    image: projectdiscovery/katana
+    volumes:
+      - ./outputs:/katana
     profiles: ["build-only"]

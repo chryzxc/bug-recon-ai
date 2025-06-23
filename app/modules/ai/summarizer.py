@@ -2,14 +2,15 @@ import openai  # or your preferred AI provider
 from typing import List, Dict
 import os
 from dotenv import load_dotenv
+from groq import Groq
 
 load_dotenv()
 
 class AISummarizer:
     def __init__(self):
-        self.api_key = os.getenv('AI_API_KEY')
-        # Configure your AI provider
-        openai.api_key = self.api_key
+        self.client = Groq(
+            api_key=os.environ.get("GROQ_API_KEY"), 
+        )
     
     def summarize_findings(self, findings: List[Dict]) -> str:
         """Use AI to generate a executive summary of findings"""
@@ -32,17 +33,18 @@ class AISummarizer:
         """
         
         try:
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
+            response = self.client.chat.completions.create(
                 messages=[
-                    {"role": "system", "content": "You are a security analyst summarizing scan results."},
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=0.7,
-                max_tokens=300
-            )
+                {"role": "system", "content": "You are a security analyst summarizing scan results."},
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
+            model="llama3-8b-8192",
+)
             
-            return response.choices[0].message['content'].strip()
+            return response.choices[0].message.content.strip()
             
         except Exception as e:
             print(f"AI summarization failed: {e}")

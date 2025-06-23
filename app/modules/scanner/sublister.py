@@ -1,7 +1,7 @@
 import subprocess
 import json
 from pathlib import Path
-
+    
 class Sublist3rScanner:
     def __init__(self):
         self.base_path = "/sublister/output"

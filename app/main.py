@@ -34,7 +34,7 @@ def main():
     # port_scanner = PortScanner()
     vuln_analyzer = VulnerabilityAnalyzer()
     report_gen = ReportGenerator()
-    # ai_summarizer = AISummarizer()
+    ai_summarizer = AISummarizer()
     
     # Perform scans
     print("Crawling website...")
@@ -90,7 +90,14 @@ def main():
     # # Generate AI summary
     # print("Generating AI summary...")
     # summary = ai_summarizer.summarize_findings(findings)
-    summary = ""
+    summary = ai_summarizer.summarize_findings({
+        'target': args.target,
+        'scan_date': datetime.now().isoformat(),
+        # 'findings': findings,
+        'crawled_pages':crawled_pages,
+        'ports':all_ports,
+        'subdomains':subdomains,
+        'technologies':whatweb_results})
     
     # Prepare final results
     scan_results = {
@@ -102,13 +109,13 @@ def main():
         'subdomains':subdomains,
         'technologies':whatweb_results,
         'summary': summary,
-        'stats': {
-            'total_findings': len(findings),
-            'critical': len([f for f in findings if f['severity'] == 'critical']),
-            'high': len([f for f in findings if f['severity'] == 'high']),
-            'medium': len([f for f in findings if f['severity'] == 'medium']),
-            'low': len([f for f in findings if f['severity'] == 'low'])
-        }
+        # 'stats': {
+        #     'total_findings': len(findings),
+        #     'critical': len([f for f in findings if f['severity'] == 'critical']),
+        #     'high': len([f for f in findings if f['severity'] == 'high']),
+        #     'medium': len([f for f in findings if f['severity'] == 'medium']),
+        #     'low': len([f for f in findings if f['severity'] == 'low'])
+        # }
     }
     
     # Generate reports
