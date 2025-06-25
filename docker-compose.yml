@@ -47,3 +47,9 @@ services:
     volumes:
       - ./outputs:/katana
     profiles: ["build-only"]
+
+  nuclei_builder:
+    image: projectdiscovery/nuclei
+    volumes:
+      - ./outputs:/nuclei
+    profiles: ["build-only"]

@@ -14,6 +14,7 @@ from datetime import datetime
 from modules.scanner.sublister import Sublist3rScanner
 from modules.scanner.nmap import NmapScanner
 from modules.scanner.whatweb import WhatWebScanner
+from modules.scanner.nuclei import NucleiScanner
 def main():
     # Initialize scanners
     parser = argparse.ArgumentParser(description="Bug Recon AI Toolkit")
@@ -33,9 +34,12 @@ def main():
     whatweb_scanner = WhatWebScanner()
     # port_scanner = PortScanner()
     vuln_analyzer = VulnerabilityAnalyzer()
+    nuclei_scanner = NucleiScanner()
     report_gen = ReportGenerator()
     ai_summarizer = AISummarizer()
-    
+    nuclei_results = nuclei_scanner.scan(args.target)
+    print('nuclei_results',nuclei_results)
+    # return
     # Perform scans
     print("Crawling website...")
     web_pages = web_scanner.crawl()
@@ -93,7 +97,7 @@ def main():
     summary = ai_summarizer.summarize_findings({
         'target': args.target,
         'scan_date': datetime.now().isoformat(),
-        # 'findings': findings,
+        'findings': nuclei_results,
         'crawled_pages':crawled_pages,
         'ports':all_ports,
         'subdomains':subdomains,
@@ -103,7 +107,7 @@ def main():
     scan_results = {
         'target': args.target,
         'scan_date': datetime.now().isoformat(),
-        # 'findings': findings,
+        'findings': nuclei_results,
         'crawled_pages':crawled_pages,
         'ports':all_ports,
         'subdomains':subdomains,
