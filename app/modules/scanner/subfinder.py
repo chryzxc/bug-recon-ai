@@ -4,30 +4,37 @@ from pathlib import Path
 import os
 from utils.log_util import LogType,logger
 from utils.misc import without_https
-class KatanaScanner:
+class SubfinderScanner:
     def __init__(self):
-        self.base_path = "/katana/output"
-        self.module_name = "Katana"
+        self.base_path = "/subfinder/output"
+        self.module_name = "Subfinder"
         
     def scan(self, domain:str, output_dir="outputs")-> list[str]:
         logger(LogType.INITIALIZE,self.module_name)
         formatted_domain = without_https(domain)
         
-        output_file = Path(output_dir) / f"{formatted_domain}_katana.txt"
+        output_file = Path(output_dir) / f"{formatted_domain}_subfinder.txt"
         output_file.parent.mkdir(exist_ok=True)
+        parts = domain.split('.')
+        is_subdomain_only = len(parts) == 2
+        
+        if domain.startswith("https://") or is_subdomain_only == False:
+           
+            logger(LogType.INVALID_TARGET,self.module_name)
+            return []
         
         if output_file.exists():
             try:
                 os.remove(output_file)
-                # print(Fore.GREEN + f"[Katana] Deleted existing file: {output_file}" + Style.RESET_ALL)
+                # print(Fore.GREEN + f"[Subfinder] Deleted existing file: {output_file}" + Style.RESET_ALL)
             except OSError as e:
-                # print(Fore.GREEN + f"[Katana] Error deleting file: {e}" + Style.RESET_ALL)
+                # print(Fore.GREEN + f"[Subfinder] Error deleting file: {e}" + Style.RESET_ALL)
                 return []
         
         cmd = [
             "docker", "run", "--rm",
             "-v", f"{Path.cwd()}/{output_dir}:{self.base_path}",
-            "projectdiscovery/katana","-u" ,domain, "-silent", "-o", f"{self.base_path}/{output_file.name}"
+            "projectdiscovery/subfinder","-d" ,domain, "-silent", "-o", f"{self.base_path}/{output_file.name}"
         ]
         try:
             logger(LogType.SCANNING,self.module_name,target=domain)

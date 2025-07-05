@@ -28,7 +28,9 @@ services:
     profiles: ["build-only"]
 
   nmap_builder:
-    image: instrumentisto/nmap
+    build:
+      context: .
+      dockerfile: docker/nmap.Dockerfile
     volumes:
       - ./outputs:/nmap
     profiles: ["build-only"]
@@ -52,4 +54,16 @@ services:
     image: projectdiscovery/nuclei
     volumes:
       - ./outputs:/nuclei
+    profiles: ["build-only"]
+
+  subfinder_builder:
+    image: projectdiscovery/subfinder
+    volumes:
+      - ./outputs:/subfinder
+    profiles: ["build-only"]
+
+  wpscan_builder:
+    image: wpscanteam/wpscan
+    volumes:
+      - ./outputs:/wpscan
     profiles: ["build-only"]

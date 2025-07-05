@@ -1,7 +1,7 @@
 import subprocess
 import json
 from pathlib import Path
-    
+from colorama import Fore, Style 
 class Sublist3rScanner:
     def __init__(self):
         self.base_path = "/sublister/output"
@@ -22,7 +22,7 @@ class Sublist3rScanner:
             subprocess.run(cmd, check=True)
             return self._parse_results(output_file)
         except subprocess.CalledProcessError as e:
-            print(f"[!] Sublist3r failed: {e}")
+            print(Fore.RED + f"[Sublist3r] Error: {e}" + Style.RESET_ALL)
             return []
 
     def _parse_results(self, output_file):
