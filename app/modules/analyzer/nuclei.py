@@ -12,10 +12,8 @@ class NucleiScanner:
     def scan(self, domain, output_dir="outputs"):
         logger(LogType.INITIALIZE,self.module_name)
         formatted_domain = without_https(domain)
-    
         output_file = Path(output_dir) / f"{formatted_domain}_nuclei.txt"
         output_file.parent.mkdir(exist_ok=True)
-        
         full_domain = domain if domain.startswith("https://") else f"https://{domain}"
         
         if output_file.exists():
@@ -28,9 +26,9 @@ class NucleiScanner:
         
         cmd = [
             "docker", "run", "--rm",
-            "-v", f"{Path.cwd()}/{output_dir}:{self.base_path}", "projectdiscovery/nuclei"," -update-templates" , "&&",
-            "projectdiscovery/nuclei","-target" ,full_domain, "-silent" ,"--output", f"{self.base_path}/{output_file.name}"
+            "-v", f"{Path.cwd()}/{output_dir}:{self.base_path}", "projectdiscovery/nuclei","-target",full_domain,"--output", f"{self.base_path}/{output_file.name}"
         ]
+     
         try:
             logger(LogType.ANALYZING,self.module_name,target=full_domain)
             subprocess.run(cmd, check=True)
