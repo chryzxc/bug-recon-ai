@@ -1,4 +1,3 @@
-import openai  # or your preferred AI provider
 from typing import List, Dict
 import os
 from dotenv import load_dotenv
@@ -39,7 +38,8 @@ class AISummarizer:
 **Rules**:  
 - Be **technical but concise** (avoid fluff).  
 - Prioritize **high-impact vulnerabilities** first.  
-- Use **bullet points** for readability.  
+- Use **bullet points** for readability.
+- Add some links that is related to the exploit.
 """  
         # prompt = f"""
         # Analyze these security findings and create a concise executive summary and steps as well on how to prevent the attack and simulate how the attackers would attack:
