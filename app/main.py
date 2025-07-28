@@ -38,7 +38,6 @@ def main():
     web_scanner = WebScanner(args.target)
     # sub_scanner = Sublist3rScanner()
     nmap_scanner = NmapScanner()
-    # output_file = Path("outputs") / f"nmap_elederm.ph.xml"
     # results = nmap_scanner._parse_results(output_file)
     # print("results",results)
     # return
