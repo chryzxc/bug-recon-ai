@@ -22,6 +22,7 @@ Bug Recon AI is a web-based tool designed to automate the initial phases of bug 
 
 1.  **Prerequisites:**
 
+    - Python 3.x
     - Docker
     - Docker Compose
 
@@ -32,16 +33,23 @@ Bug Recon AI is a web-based tool designed to automate the initial phases of bug 
     cd bug-recon-ai
     ```
 
-3.  **Build and run the containers:**
+3.  **Install Python dependencies:**
     ```bash
-    docker-compose up --build
+    pip install -r requirements.txt
+    ```
+
+4.  **Build the Docker containers:**
+    ```bash
+    docker-compose build --profile build-only
     ```
 
 ## Usage
 
-1.  Once the containers are running, open your web browser and navigate to `http://localhost:5000`.
-2.  Enter the target domain in the input field and click "Scan".
-3.  The results of the reconnaissance will be displayed on the page.
+Run the application from the terminal:
+```bash
+python app/main.py <domain>
+```
+
 
 ## Project Structure
 
