@@ -1,6 +1,6 @@
 # Bug Recon AI
 
-Bug Recon AI is a web-based tool designed to automate the initial phases of bug bounty reconnaissance. It leverages popular open-source tools to gather information about a target domain, including subdomain enumeration, port scanning, and web technology identification.
+Bug Recon AI is a tool designed to automate the initial phases of bug bounty reconnaissance. It leverages popular open-source tools to gather information about a target domain, including subdomain enumeration, port scanning, and web technology identification.
 
 ## Features
 
@@ -11,12 +11,16 @@ Bug Recon AI is a web-based tool designed to automate the initial phases of bug 
 
 ## Technologies Used
 
-- **Backend:** Python, Flask
+- **Progamming Language:** Python,
 - **Containerization:** Docker, Docker Compose
 - **Scanning Tools:**
   - Nmap
   - Sublist3r
   - WhatWeb
+  - Nuclei
+  - Katana
+  - Subfinder
+  - Wpscan
 
 ## Setup and Installation
 
@@ -56,7 +60,7 @@ python app/main.py <domain>
 ```
 .
 ├── app/
-│   ├── main.py         # Main Flask application
+│   ├── main.py         # Main application
 │   ├── modules/        # Business logic for scanning tools
 │   ├── templates/      # HTML templates for the web interface
 │   └── utils/          # Utility functions
